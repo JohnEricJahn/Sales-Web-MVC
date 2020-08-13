@@ -19,8 +19,8 @@ namespace SalesWebMvc.Data {
             }
 
             Department d1 = new Department(1, "Computers");
-            Department d2 = new Department(2, "Eletronics");
-            Department d3 = new Department(3, "Eletronics");
+            Department d2 = new Department(2, "Fashion");
+            Department d3 = new Department(3, "Books");
             Department d4 = new Department(4, "Eletronics");
 
             Seller s1 = new Seller(1, "Bob Brown", "bob@gmail.com", new DateTime(1998, 4, 21), 1000.0, d1);
