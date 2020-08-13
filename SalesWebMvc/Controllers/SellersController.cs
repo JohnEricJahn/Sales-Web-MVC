@@ -61,9 +61,13 @@ namespace SalesWebMvc.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id) {
-            await _sellerService.RemoveAsync(id);
+            try {
+                await _sellerService.RemoveAsync(id);
 
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            } catch (IntegrityException error) {
+                return RedirectToAction(nameof(Error), new { message = "Can't delete seller because he/she has sales" });
+            }
         }
 
         public async Task<IActionResult> Details(int? id) {
@@ -71,7 +75,7 @@ namespace SalesWebMvc.Controllers {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            var obj = await _sellerService.FindByIdAsync(id);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
             if (obj == null) {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
